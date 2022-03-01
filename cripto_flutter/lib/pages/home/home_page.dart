@@ -45,9 +45,9 @@ class _HomePageState extends State<HomePage> {
               icon: Icon(Icons.account_balance_wallet), label: 'Wallet'),
           BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Account'),
         ],
-        onTap: (pagina) {
+        onTap: (page) {
           pc.animateToPage(
-            pagina,
+            page,
             duration: const Duration(milliseconds: 400),
             curve: Curves.ease,
           );

@@ -1,10 +1,6 @@
-
-
-import 'package:cripto_flutter/models/coin_model.dart';
+import 'package:cripto_flutter/models/currency_model.dart';
 
 class PositionModel {
-  CoinModel? coinModel;
+  CurrencyModel? currency;
   double? quantity;
-
-  
 }

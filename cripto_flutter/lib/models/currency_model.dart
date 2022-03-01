@@ -1,9 +1,6 @@
 import 'dart:convert';
 
-
-
-class CoinModel {
-
+class CurrencyModel {
   String? baseId;
   String? icon;
   String? name;
@@ -17,7 +14,7 @@ class CoinModel {
   double? varYear;
   double? varTotalPeriod;
 
-  CoinModel({
+  CurrencyModel({
     this.baseId,
     this.icon,
     this.name,
@@ -32,8 +29,9 @@ class CoinModel {
     this.varTotalPeriod,
   });
 
+  
 
-  CoinModel copyWith({
+  CurrencyModel copyWith({
     String? baseId,
     String? icon,
     String? name,
@@ -47,7 +45,7 @@ class CoinModel {
     double? varYear,
     double? varTotalPeriod,
   }) {
-    return CoinModel(
+    return CurrencyModel(
       baseId: baseId ?? this.baseId,
       icon: icon ?? this.icon,
       name: name ?? this.name,
@@ -80,8 +78,8 @@ class CoinModel {
     };
   }
 
-  factory CoinModel.fromMap(Map<String, dynamic> map) {
-    return CoinModel(
+  factory CurrencyModel.fromMap(Map<String, dynamic> map) {
+    return CurrencyModel(
       baseId: map['baseId'],
       icon: map['icon'],
       name: map['name'],
@@ -99,12 +97,10 @@ class CoinModel {
 
   String toJson() => json.encode(toMap());
 
-  factory CoinModel.fromJson(String source) => CoinModel.fromMap(json.decode(source));
+  factory CurrencyModel.fromJson(String source) => CurrencyModel.fromMap(json.decode(source));
 
   @override
   String toString() {
-    return 'CoinModel(baseId: $baseId, icon: $icon, name: $name, acronym: $acronym, price: $price, timeStamp: $timeStamp, varHour: $varHour, varDay: $varDay, varWeek: $varWeek, varMonth: $varMonth, varYear: $varYear, varTotalPeriod: $varTotalPeriod)';
+    return 'CurrencyModel(baseId: $baseId, icon: $icon, name: $name, acronym: $acronym, price: $price, timeStamp: $timeStamp, varHour: $varHour, varDay: $varDay, varWeek: $varWeek, varMonth: $varMonth, varYear: $varYear, varTotalPeriod: $varTotalPeriod)';
   }
-
-
 }

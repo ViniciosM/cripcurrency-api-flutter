@@ -1,18 +1,18 @@
-
 import 'dart:convert';
-import 'package:cripto_flutter/models/coin_model.dart';
+
+import 'package:cripto_flutter/models/currency_model.dart';
 
 class HistoricModel {
   DateTime? operationDate;
   String? operationType;
-  CoinModel? coin;
+  CurrencyModel? currency;
   double? value;
   double? quantity;
 
   HistoricModel({
     this.operationDate,
     this.operationType,
-    this.coin,
+    this.currency,
     this.value,
     this.quantity,
   });
@@ -20,14 +20,14 @@ class HistoricModel {
   HistoricModel copyWith({
     DateTime? operationDate,
     String? operationType,
-    CoinModel? coin,
+    CurrencyModel? currency,
     double? value,
     double? quantity,
   }) {
     return HistoricModel(
       operationDate: operationDate ?? this.operationDate,
       operationType: operationType ?? this.operationType,
-      coin: coin ?? this.coin,
+      currency: currency ?? this.currency,
       value: value ?? this.value,
       quantity: quantity ?? this.quantity,
     );
@@ -37,7 +37,7 @@ class HistoricModel {
     return {
       'operationDate': operationDate?.millisecondsSinceEpoch,
       'operationType': operationType,
-      'coin': coin?.toMap(),
+      'currency': currency?.toMap(),
       'value': value,
       'quantity': quantity,
     };
@@ -45,9 +45,13 @@ class HistoricModel {
 
   factory HistoricModel.fromMap(Map<String, dynamic> map) {
     return HistoricModel(
-      operationDate: map['operationDate'] != null ? DateTime.fromMillisecondsSinceEpoch(map['operationDate']) : null,
+      operationDate: map['operationDate'] != null
+          ? DateTime.fromMillisecondsSinceEpoch(map['operationDate'])
+          : null,
       operationType: map['operationType'],
-      coin: map['coin'] != null ? CoinModel.fromMap(map['coin']) : null,
+      currency: map['currency'] != null
+          ? CurrencyModel.fromMap(map['currency'])
+          : null,
       value: map['value']?.toDouble(),
       quantity: map['quantity']?.toDouble(),
     );
@@ -55,11 +59,11 @@ class HistoricModel {
 
   String toJson() => json.encode(toMap());
 
-  factory HistoricModel.fromJson(String source) => HistoricModel.fromMap(json.decode(source));
+  factory HistoricModel.fromJson(String source) =>
+      HistoricModel.fromMap(json.decode(source));
 
   @override
   String toString() {
-    return 'HistoricModel(operationDate: $operationDate, operationType: $operationType, coin: $coin, value: $value, quantity: $quantity)';
+    return 'HistoricModel(operationDate: $operationDate, operationType: $operationType, currency: $currency, value: $value, quantity: $quantity)';
   }
-
 }

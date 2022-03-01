@@ -1,4 +1,5 @@
-
+import 'package:sqflite/sqflite.dart';
+import 'package:path/path.dart';
 
 class DB {
 
@@ -6,7 +7,7 @@ class DB {
 
   static final DB instance = DB._();
 
-  static Database? database;
+  static Database? _database;
 
   get database async {
     if(_database != null) return _database;
@@ -14,7 +15,7 @@ class DB {
     return await _initDatabase();
   }
 
-  _initDatabase() asyns {
+  _initDatabase() async {
     return await openDatabase(
       join(await getDatabasesPath(), 'cripto.db'),
       version: 1,
@@ -38,7 +39,7 @@ class DB {
   String get _wallet => '''
   CREATE TABLE wallet (
     acronym TEXT PRIMARY KEY,
-    coin TEXT,
+    currency TEXT,
     quantity TEXT
   ); ''';
 
@@ -47,7 +48,7 @@ class DB {
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     operationDate INT,
     operationType TEXT,
-    coin TEXT,
+    currency TEXT,
     acronym TEXT,
     value REAL,
     quantity TEXT
