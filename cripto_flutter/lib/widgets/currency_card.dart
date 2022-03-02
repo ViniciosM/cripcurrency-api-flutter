@@ -1,5 +1,6 @@
 import 'package:cripto_flutter/configs/app_settings.dart';
 import 'package:cripto_flutter/models/currency_model.dart';
+import 'package:cripto_flutter/pages/currency_details/currency_details_page.dart';
 import 'package:cripto_flutter/repositories/favorites_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';

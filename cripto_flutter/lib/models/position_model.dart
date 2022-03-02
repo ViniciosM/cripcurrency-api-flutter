@@ -29,15 +29,19 @@ class PositionModel {
 
   factory PositionModel.fromMap(Map<String, dynamic> map) {
     return PositionModel(
-      currency: map['currency'] != null ? CurrencyModel.fromMap(map['currency']) : null,
+      currency: map['currency'] != null
+          ? CurrencyModel.fromMap(map['currency'])
+          : null,
       quantity: map['quantity']?.toDouble(),
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory PositionModel.fromJson(String source) => PositionModel.fromMap(json.decode(source));
+  factory PositionModel.fromJson(String source) =>
+      PositionModel.fromMap(json.decode(source));
 
   @override
-  String toString() => 'PositionModel(currency: $currency, quantity: $quantity)';
+  String toString() =>
+      'PositionModel(currency: $currency, quantity: $quantity)';
 }

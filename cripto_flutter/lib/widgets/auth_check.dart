@@ -1,5 +1,5 @@
 import 'package:cripto_flutter/pages/home/home_page.dart';
-import 'package:cripto_flutter/pages/login_page.dart';
+import 'package:cripto_flutter/pages/login/login_page.dart';
 import 'package:cripto_flutter/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -19,7 +19,7 @@ class _AuthCheckState extends State<AuthCheck> {
     if (auth.isLoading) {
       return loading();
     } else if (auth.user == null) {
-      return const LoginPage();
+      return const HomePage();
     } else {
       return const HomePage();
     }

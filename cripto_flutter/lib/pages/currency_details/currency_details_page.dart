@@ -1,11 +1,18 @@
 
+import 'package:cripto_flutter/configs/app_settings.dart';
+import 'package:cripto_flutter/models/currency_model.dart';
 import 'package:cripto_flutter/repositories/account_repository.dart';
+import 'package:cripto_flutter/widgets/graphic_historic.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 
 class CurrencyDetailsPage extends StatefulWidget {
-  const CurrencyDetailsPage({ Key? key }) : super(key: key);
+  CurrencyModel currency;
+
+  CurrencyDetailsPage({ Key? key, required this.currency}) : super(key: key);
 
   @override
   _CurrencyDetailsPageState createState() => _CurrencyDetailsPageState();
@@ -21,22 +28,22 @@ class _CurrencyDetailsPageState extends State<CurrencyDetailsPage> {
   bool graphicLoaded = false;
 
   getGraphic() {
-    if (!graficoLoaded) {
-      grafico = GraphicHistoric(currency: widget.currency);
-      graficoLoaded = true;
+    if (!graphicLoaded) {
+      graphic = GraphicHistoric(currency: widget.currency);
+      graphicLoaded = true;
     }
-    return grafico;
+    return graphic;
   }
 
   buy() async {
     if (_form.currentState!.validate()) {
       // Salvar a compra
-      await account.buy(widget.currency, double.parse(_valor.text));
+      await account.buy(widget.currency, double.parse(_value.text));
 
       Navigator.pop(context);
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Compra realizada com sucesso!')),
+        const SnackBar(content: Text('Compra realizada com sucesso!')),
       );
     }
   }
@@ -44,29 +51,29 @@ class _CurrencyDetailsPageState extends State<CurrencyDetailsPage> {
   @override
   Widget build(BuildContext context) {
     readNumberFormat();
-    conta = Provider.of<ContaRepository>(context, listen: false);
+    account = Provider.of<AccountRepository>(context, listen: false);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.moeda.nome),
+        title: Text(widget.currency.name!),
       ),
       body: Padding(
-        padding: EdgeInsets.all(24),
+        padding: const EdgeInsets.all(24),
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.only(bottom: 24),
+              padding: const EdgeInsets.only(bottom: 24),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Image.network(
-                    widget.moeda.icone,
+                    widget.currency.icon!,
                     scale: 2.5,
                   ),
                   Container(width: 10),
                   Text(
-                    real.format(widget.moeda.preco),
+                    real.format(widget.currency.price),
                     style: TextStyle(
                       fontSize: 26,
                       fontWeight: FontWeight.w600,
@@ -77,19 +84,19 @@ class _CurrencyDetailsPageState extends State<CurrencyDetailsPage> {
                 ],
               ),
             ),
-            getGrafico(),
-            (quantidade > 0)
+            getGraphic(),
+            (quantity > 0)
                 ? SizedBox(
                     width: MediaQuery.of(context).size.width,
                     child: Container(
                       child: Text(
-                        '$quantidade ${widget.moeda.sigla}',
-                        style: TextStyle(
+                        '$quantity ${widget.currency.acronym}',
+                        style: const TextStyle(
                           fontSize: 20,
                           color: Colors.teal,
                         ),
                       ),
-                      margin: EdgeInsets.only(bottom: 24),
+                      margin: const EdgeInsets.only(bottom: 24),
                       // padding: EdgeInsets.all(12),
                       alignment: Alignment.center,
                       // decoration: BoxDecoration(
@@ -98,14 +105,14 @@ class _CurrencyDetailsPageState extends State<CurrencyDetailsPage> {
                     ),
                   )
                 : Container(
-                    margin: EdgeInsets.only(bottom: 24),
+                    margin: const EdgeInsets.only(bottom: 24),
                   ),
             Form(
               key: _form,
               child: TextFormField(
-                controller: _valor,
-                style: TextStyle(fontSize: 22),
-                decoration: InputDecoration(
+                controller: _value,
+                style: const TextStyle(fontSize: 22),
+                decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Valor',
                   prefixIcon: Icon(Icons.monetization_on_outlined),
@@ -121,28 +128,28 @@ class _CurrencyDetailsPageState extends State<CurrencyDetailsPage> {
                     return 'Informe o valor da compra';
                   } else if (double.parse(value) < 50) {
                     return 'Compra mínima é R\$ 50,00';
-                  } else if (double.parse(value) > conta.saldo) {
+                  } else if (double.parse(value) > account.balance) {
                     return 'Você não tem saldo suficiente';
                   }
                   return null;
                 },
                 onChanged: (value) {
                   setState(() {
-                    quantidade = (value.isEmpty)
+                    quantity = (value.isEmpty)
                         ? 0
-                        : double.parse(value) / widget.moeda.preco;
+                        : double.parse(value) / widget.currency.price!;
                   });
                 },
               ),
             ),
             Container(
               alignment: Alignment.bottomCenter,
-              margin: EdgeInsets.only(top: 24),
+              margin: const EdgeInsets.only(top: 24),
               child: ElevatedButton(
-                onPressed: comprar,
+                onPressed: buy,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
+                  children: const [
                     Icon(Icons.check),
                     Padding(
                       padding: EdgeInsets.all(16),

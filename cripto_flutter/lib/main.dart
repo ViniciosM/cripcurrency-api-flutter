@@ -12,8 +12,9 @@ import 'package:provider/provider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await HiveConfig.start();
-  await Firebase.initializeApp();
-  runApp(MultiProvider(
+  //await Firebase.initializeApp();
+  runApp(
+    MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (context) => AuthService()),
       ChangeNotifierProvider(create: (context) => CurrencyRepository()),

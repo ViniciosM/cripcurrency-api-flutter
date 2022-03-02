@@ -12,7 +12,7 @@ class AppSettings extends ChangeNotifier {
   Map<String, String> locale = {
     'locale': 'pt_BR',
     'name': 'R\$',
-  }
+  };
 
   AppSettings(){
     _startSettings();

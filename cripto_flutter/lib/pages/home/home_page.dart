@@ -1,4 +1,6 @@
+import 'package:cripto_flutter/pages/currency/currency_page.dart';
 import 'package:cripto_flutter/pages/favorites/favorites_page.dart';
+import 'package:cripto_flutter/pages/settings/settings_page.dart';
 import 'package:cripto_flutter/pages/wallet/wallet_page.dart';
 import 'package:flutter/material.dart';
 
@@ -29,8 +31,8 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: PageView(
-        children: [
-          CurrenciesPage(),
+        children: const [
+          CurrencyPage(),
           FavoritesPage(),
           WalletPage(),
           SettingsPage(),
