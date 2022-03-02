@@ -1,3 +1,5 @@
+import 'package:cripto_flutter/pages/favorites/favorites_page.dart';
+import 'package:cripto_flutter/pages/wallet/wallet_page.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -28,7 +30,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: PageView(
         children: [
-          CoinsPage(),
+          CurrenciesPage(),
           FavoritesPage(),
           WalletPage(),
           SettingsPage(),
